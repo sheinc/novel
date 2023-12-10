@@ -69,5 +69,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sheinc/novel.git"
-  }
+  },
+  "version": "0.0.1"
 }

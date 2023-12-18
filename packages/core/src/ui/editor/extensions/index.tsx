@@ -8,6 +8,15 @@ import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+<<<<<<< Updated upstream
+=======
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
+import Youtube from "@tiptap/extension-youtube";
+import { YoutubePlaceholder } from "../youtube/placeholder";
+>>>>>>> Stashed changes
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
 import SlashCommand from "./slash-command";
@@ -112,6 +121,9 @@ export const defaultExtensions = [
       if (node.type.name === "heading") {
         return `Heading ${node.attrs.level}`;
       }
+      if (node.type.name === "react-component") {
+        return "";
+      }
       return "Press '/' for commands, or '++' for AI autocomplete...";
     },
     includeChildren: true,
@@ -138,6 +150,14 @@ export const defaultExtensions = [
     html: false,
     transformCopiedText: true,
     transformPastedText: true,
+  }),
+  YoutubePlaceholder.configure(),
+  Youtube.configure({
+    inline: true,
+    controls: true,
+    nocookie: false,
+    allowFullscreen: true,
+    autoplay: false,
   }),
   CustomKeymap,
   DragAndDrop,

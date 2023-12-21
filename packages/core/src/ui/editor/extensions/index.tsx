@@ -14,6 +14,7 @@ import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import { Markdown } from "tiptap-markdown";
 import Highlight from "@tiptap/extension-highlight";
+import { Youtube } from "@tiptap/extension-youtube";
 // import SlashCommand from "./slash-command";
 import { InputRule } from "@tiptap/core";
 // import UploadImagesPlugin from "@/ui/editor/plugins/upload-images";
@@ -97,11 +98,19 @@ export const defaultExtensions = [
       class: "novel-mt-4 novel-mb-6 novel-border-t novel-border-stone-300",
     },
   }),
+  Youtube.configure({
+    inline: false,
+    controls: true,
+    nocookie: false,
+    allowFullscreen: true,
+    autoplay: false,
+  }),
   TiptapLink.configure({
     HTMLAttributes: {
       class:
         "novel-text-stone-400 novel-underline novel-underline-offset-[3px] hover:novel-text-stone-600 novel-transition-colors novel-cursor-pointer",
     },
+    linkOnPaste: false,
   }),
   // Expect TiptapImage to be is explicitly set from the extensions(not as defaultExtensions)
   // TiptapImage.extend({

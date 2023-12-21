@@ -49,7 +49,7 @@ const Callout = (props: NodeViewProps) => {
           ) : (
             <div className="novel-ml-2 novel-pr-3 novel-text-2xl">{emoji}</div>
           )}
-          <div className="novel-w-full novel-border">
+          <div className="novel-w-full">
             <NodeViewContent />
           </div>
         </div>

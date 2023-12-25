@@ -193,7 +193,7 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
             </button>
           ))}
 
-          {editor.isActive("heading") && (
+          {(editor.isActive("heading") || editor.isActive("callout")) && (
             <>
               <div className="novel-mb-1 novel-mt-2 novel-px-2 novel-text-sm novel-text-stone-500">
                 Block Background
@@ -205,6 +205,10 @@ export const ColorSelector: FC<ColorSelectorProps> = ({
                   onClick={() => {
                     if (editor.isActive("heading")) {
                       editor.commands.setHeadingBackgroundColor({
+                        bgColor: color,
+                      });
+                    } else if (editor.isActive("callout")) {
+                      editor.commands.setCalloutBackgroundColor({
                         bgColor: color,
                       });
                     }

@@ -1,7 +1,14 @@
 import { cn, getUrlFromString } from "@/lib/utils";
 import { Editor } from "@tiptap/core";
 import { Check, Trash } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useEffect, useRef } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+} from "react";
 
 interface LinkSelectorProps {
   editor: Editor;
@@ -21,6 +28,14 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
     inputRef.current && inputRef.current?.focus();
   });
 
+  const handleSubmit = (e: SyntheticEvent) => {
+    if (!inputRef.current) return;
+    e.preventDefault();
+    const url = getUrlFromString(inputRef.current.value);
+    url && editor.chain().focus().setLink({ href: url }).run();
+    setIsOpen(false);
+  };
+
   return (
     <div className="novel-relative">
       <button
@@ -36,29 +51,26 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
             "novel-underline novel-decoration-stone-400 novel-underline-offset-4",
             {
               "novel-text-blue-500": editor.isActive("link"),
-            }
+            },
           )}
         >
           Link
         </p>
       </button>
       {isOpen && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const input = e.currentTarget[0] as HTMLInputElement;
-            const url = getUrlFromString(input.value);
-            url && editor.chain().focus().setLink({ href: url }).run();
-            setIsOpen(false);
-          }}
-          className="novel-fixed novel-top-full novel-z-[99999] novel-mt-1 novel-flex novel-w-60 novel-overflow-hidden novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-p-1 novel-shadow-xl novel-animate-in novel-fade-in novel-slide-in-from-top-1"
-        >
+        <div className="novel-fixed novel-top-full novel-z-[99999] novel-mt-1 novel-flex novel-w-60 novel-overflow-hidden novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-p-1 novel-shadow-xl novel-animate-in novel-fade-in novel-slide-in-from-top-1">
           <input
             ref={inputRef}
             type="text"
             placeholder="Paste a link"
             className="novel-flex-1 novel-bg-white novel-p-1 novel-text-sm novel-outline-none"
             defaultValue={editor.getAttributes("link").href || ""}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
           />
           {editor.getAttributes("link").href ? (
             <button
@@ -72,11 +84,15 @@ export const LinkSelector: FC<LinkSelectorProps> = ({
               <Trash className="novel-h-4 novel-w-4" />
             </button>
           ) : (
-            <button className="novel-flex novel-items-center novel-rounded-sm novel-p-1 novel-text-stone-600 novel-transition-all hover:novel-bg-stone-100">
+            <button
+              type="button"
+              className="novel-flex novel-items-center novel-rounded-sm novel-p-1 novel-text-stone-600 novel-transition-all hover:novel-bg-stone-100"
+              onClick={handleSubmit}
+            >
               <Check className="novel-h-4 novel-w-4" />
             </button>
           )}
-        </form>
+        </div>
       )}
     </div>
   );

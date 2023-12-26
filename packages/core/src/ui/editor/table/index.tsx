@@ -9,8 +9,6 @@ interface TableMenuItem {
 }
 
 export const TableMenu = ({ editor }: { editor: any }) => {
-  if (!editor.isEditable) return null;
-
   const [tableLocation, setTableLocation] = useState(0);
   const items: TableMenuItem[] = [
     {
@@ -68,6 +66,8 @@ export const TableMenu = ({ editor }: { editor: any }) => {
     };
   }, [tableLocation]);
 
+  if (!editor.isEditable) return null;
+
   return (
     <section
       className="novel-absolute novel-left-2/4 novel-flex novel-translate-x-[-50%] novel-overflow-hidden novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-shadow-xl novel-z-40"
@@ -78,6 +78,7 @@ export const TableMenu = ({ editor }: { editor: any }) => {
       {items.map((item) => (
         <button
           key={item.id}
+          type="button"
           onClick={item.command}
           className="novel-p-2 novel-text-stone-600 novel-hover:bg-stone-100 novel-active:bg-stone-200"
           title={item.name}

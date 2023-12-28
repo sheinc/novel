@@ -1,6 +1,6 @@
 {
   "name": "@sheinc/novel",
-  "version": "0.1.985",
+  "version": "0.1.986",
   "description": "Notion-style WYSIWYG editor with AI-powered autocompletion",
   "license": "UNLICENSED",
   "main": "./dist/index.js",

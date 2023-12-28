@@ -22,6 +22,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Generate a token
         id: generate_token

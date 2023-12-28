@@ -63,9 +63,12 @@ jobs:
           git add .
           git commit -m "chore: update version"
           git tag v${{ steps.get_version.outputs.version }}
-          git push origin release --tags
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ steps.generate_token.outputs.token }}
+          branch: release
 
       - name: Publish package
         run: pnpm run -w release

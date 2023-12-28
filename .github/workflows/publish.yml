@@ -23,6 +23,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -58,7 +65,7 @@ jobs:
           git tag v${{ steps.get_version.outputs.version }}
           git push origin release --tags
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
 
       - name: Publish package
         run: pnpm run -w release

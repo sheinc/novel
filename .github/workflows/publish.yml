@@ -58,7 +58,7 @@ jobs:
           git tag v${{ steps.get_version.outputs.version }}
           git push origin release --tags
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: Publish package
         run: pnpm run -w release

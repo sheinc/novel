@@ -131,7 +131,7 @@ export default function Editor({
         className={className}
       >
         {editor && <EditorBubbleMenu editor={editor} />}
-        {editor?.isActive("image") && <ImageResizer editor={editor} />}
+        {editor?.isActive("image") && editor?.isEditable && <ImageResizer editor={editor} />}
         {editor?.isActive("table") && <TableMenu editor={editor} />}
         <EditorContent editor={editor} />
       </div>

@@ -115,8 +115,16 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration-thickness: 2px;
 }
 
-ul[data-type="taskList"] li > label[contenteditable="false"] input[type="checkbox"] {
+div[contenteditable="false"]
+  ul[data-type="taskList"]
+  li
+  > label
+  input[type="checkbox"] {
   cursor: default;
+
+  &:hover {
+    background-color: inherit;
+  }
 }
 
 /* Overwrite table styles */

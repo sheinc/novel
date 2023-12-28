@@ -57,6 +57,8 @@ jobs:
           git commit -m "chore: update version"
           git tag v${{ steps.get_version.outputs.version }}
           git push origin release --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish package
         run: pnpm run -w release

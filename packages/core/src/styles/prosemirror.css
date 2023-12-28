@@ -115,6 +115,10 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration-thickness: 2px;
 }
 
+ul[data-type="taskList"] li > label[contenteditable="false"] input[type="checkbox"] {
+  cursor: default;
+}
+
 /* Overwrite table styles */
 
 .ProseMirror table * p {
@@ -123,7 +127,7 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
 }
 
 .ProseMirror table * .is-empty::before {
- opacity: 0;
+  opacity: 0;
 }
 
 /* Overwrite tippy-box original max-width */

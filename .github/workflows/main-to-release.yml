@@ -1,7 +1,8 @@
 name: Create PR to release
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - she-main
 
@@ -20,6 +21,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: release
+
+      - name: Check the condition
+        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'she-main'
+        run: exit 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3

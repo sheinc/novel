@@ -16,7 +16,6 @@ jobs:
     permissions:
       packages: write
       contents: write
-      actions: write
       pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

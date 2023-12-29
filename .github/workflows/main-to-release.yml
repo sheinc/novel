@@ -23,7 +23,7 @@ jobs:
           ref: release
 
       - name: Check the condition
-        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'release'
+        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'she-main'
         run: exit 0
 
       - name: Setup Node.js

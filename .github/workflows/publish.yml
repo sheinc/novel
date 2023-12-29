@@ -64,7 +64,7 @@ jobs:
           git add .
           git commit -m "chore: update version"
           git tag v${{ steps.get_version.outputs.version }}
-          git push origin release --tags
+          git push origin --tags
 
       - name: Publish package
         run: pnpm run -w release

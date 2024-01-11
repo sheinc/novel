@@ -11,7 +11,7 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { TableMenu } from "./table";
 import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
-import { Editor as EditorClass, Extensions } from "@tiptap/core";
+import { Editor as EditorClass, Extensions, FocusPosition } from "@tiptap/core";
 import { NovelContext } from "./provider";
 
 export default function Editor({
@@ -25,6 +25,7 @@ export default function Editor({
   debounceDuration = 750,
   storageKey = "novel__content",
   disableLocalStorage = false,
+  autofocus,
 }: {
   /**
    * The API route to use for the OpenAI completion API.
@@ -78,6 +79,10 @@ export default function Editor({
    * Defaults to false.
    */
   disableLocalStorage?: boolean;
+  /**
+   * The autofocus behavior for the editor.
+   */
+  autofocus?: FocusPosition | undefined;
 }) {
   const [content, setContent] = useLocalStorage(storageKey, defaultValue);
 
@@ -102,7 +107,7 @@ export default function Editor({
       onUpdate(e.editor);
       debouncedUpdates(e);
     },
-    autofocus: "end",
+    autofocus,
   });
 
   // Default: Hydrate the editor with the content from localStorage.
@@ -131,7 +136,9 @@ export default function Editor({
         className={className}
       >
         {editor && <EditorBubbleMenu editor={editor} />}
-        {editor?.isActive("image") && editor?.isEditable && <ImageResizer editor={editor} />}
+        {editor?.isActive("image") && editor?.isEditable && (
+          <ImageResizer editor={editor} />
+        )}
         {editor?.isActive("table") && <TableMenu editor={editor} />}
         <EditorContent editor={editor} />
       </div>

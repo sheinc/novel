@@ -7,7 +7,7 @@ export const cal = localFont({
 });
 
 export const crimsonBold = Crimson_Text({
-  weight: "700",
+  weight: "600",
   variable: "--font-title",
   subsets: ["latin"],
 });
@@ -18,7 +18,7 @@ export const inter = Inter({
 });
 
 export const inconsolataBold = Inconsolata({
-  weight: "700",
+  weight: "600",
   variable: "--font-title",
   subsets: ["latin"],
 });

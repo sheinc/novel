@@ -76,7 +76,7 @@ jobs:
       - name: Publish package
         run: pnpm run -w release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
         uses: release-drafter/release-drafter@v5

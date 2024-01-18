@@ -1,5 +1,5 @@
 .ProseMirror {
-  @apply novel-p-12 novel-px-8 sm:novel-px-12;
+  @apply novel-p-12 novel-px-8 sm:novel-px-12 novel-text-base novel-leading-normal; 
 }
 
 .ProseMirror .is-editor-empty:first-child::before {
@@ -58,7 +58,6 @@
 }
 
 /* Custom TODO list checkboxes – shoutout to this awesome tutorial: https://moderncss.dev/pure-css-custom-checkbox-style/ */
-
 ul[data-type="taskList"] li > label {
   margin-right: 0.2rem;
   user-select: none;
@@ -125,6 +124,27 @@ div[contenteditable="false"]
   &:hover {
     background-color: inherit;
   }
+}
+
+/* Overwrite bold styles */
+.ProseMirror strong {
+  font-weight: 600;
+}
+
+/* Overwrite heading styles */
+.ProseMirror h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.ProseMirror h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ProseMirror h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
 }
 
 /* Overwrite table styles */

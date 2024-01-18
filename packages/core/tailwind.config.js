@@ -7,4 +7,11 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
+  theme: {
+    extend: {
+      lineHeight: {
+        normal: '180%',
+      }
+    }
+  }
 };

@@ -1,5 +1,5 @@
 .ProseMirror {
-  @apply novel-p-12 novel-px-8 sm:novel-px-12 novel-text-base novel-leading-normal; 
+  @apply novel-p-12 novel-px-8 sm:novel-px-12 novel-text-base novel-leading-normal;
 }
 
 .ProseMirror .is-editor-empty:first-child::before {
@@ -57,7 +57,22 @@
   }
 }
 
+/* Overwrite unordered list */
+.ProseMirror > ul > li {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.ProseMirror > ul > li > p {
+  margin: 0;
+}
+
 /* Custom TODO list checkboxes – shoutout to this awesome tutorial: https://moderncss.dev/pure-css-custom-checkbox-style/ */
+ul[data-type="taskList"] li {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
 ul[data-type="taskList"] li > label {
   margin-right: 0.2rem;
   user-select: none;
@@ -136,18 +151,32 @@ div[contenteditable="false"]
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
 .ProseMirror h2 {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
 .ProseMirror h3 {
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.novel-prose-lg :where(h1, h2, h3):not(:where([class~="novel-not-prose"] *)) {
+  margin-top: 1rem;
+}
+
+/* Overwrite paragraph styles */
+
+.ProseMirror > p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* Overwrite table styles */

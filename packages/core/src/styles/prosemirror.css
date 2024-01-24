@@ -135,16 +135,19 @@ div[contenteditable="false"]
 .ProseMirror h1 {
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 .ProseMirror h2 {
   font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 .ProseMirror h3 {
   font-size: 1.125rem;
   font-weight: 600;
+  line-height: 1.5;
 }
 
 /* Overwrite table styles */

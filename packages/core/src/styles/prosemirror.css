@@ -168,6 +168,7 @@ div[contenteditable="false"]
   margin-bottom: 1rem;
 }
 
+/* NOTE: Styles applied to all h tags except that placed at the top */
 .novel-prose-lg :where(h1, h2, h3):not(:where([class~="novel-not-prose"] *)) {
   margin-top: 1rem;
 }

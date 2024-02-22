@@ -114,7 +114,7 @@ export const EmbedVideo = Node.create({
 
   addCommands() {
     return {
-      setYoutubeVideo:
+      setEmbedVideo:
         (options: SetEmbedVideoOptions) =>
         ({ commands }) => {
           if (!isValidUrl(options.src)) {

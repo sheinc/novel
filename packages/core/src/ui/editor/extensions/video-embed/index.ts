@@ -1,3 +1,5 @@
+// refs: https://github.com/ueberdosis/tiptap/blob/a863e1c49a0531ddfe06c4e73a427c109a4757db/packages/extension-youtube/src/youtube.ts
+
 import { isValidUrl } from "@/lib/utils";
 import { Node, mergeAttributes, nodePasteRule } from "@tiptap/core";
 import { GLOBAL_REGEX, VideoEmbedType, getEmbedUrl } from "./utils";

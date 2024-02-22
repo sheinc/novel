@@ -116,6 +116,7 @@ function DragHandle(options: DragHandleOptions) {
 
   return new Plugin({
     view: (view) => {
+      document.addEventListener("scroll", hideDragHandle);
       dragHandleElement = document.createElement("div");
       dragHandleElement.draggable = true;
       dragHandleElement.dataset.dragHandle = "";
@@ -133,6 +134,7 @@ function DragHandle(options: DragHandleOptions) {
 
       return {
         destroy: () => {
+          document.removeEventListener("scroll", hideDragHandle);
           dragHandleElement?.remove?.();
           dragHandleElement = null;
         },

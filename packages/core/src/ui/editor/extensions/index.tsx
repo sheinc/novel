@@ -100,13 +100,14 @@ export const defaultExtensions = [
       class: "novel-mt-4 novel-mb-6 novel-border-t novel-border-stone-300",
     },
   }),
+  // CAUTION: Youtube link をペーストしたときには、EmbedVideo が使われる。しかし、すでに作成された youtube node を描画するためにこの Extension は残しておく。
   Youtube.configure({
     inline: false,
     controls: true,
     nocookie: false,
     allowFullscreen: true,
     autoplay: false,
-    addPasteHandler: false, // use EmbedVideo instead
+    addPasteHandler: false, // to use EmbedVideo instead
   }),
   EmbedVideo.configure({
     inline: false,

@@ -22,6 +22,7 @@ import CustomKeymap from "./custom-keymap";
 import DragAndDrop from "./drag-and-drop";
 import { Heading } from "./custom-heading";
 import { Callout } from "./callout";
+import { EmbedVideo } from "./video-embed";
 
 export const defaultExtensions = [
   StarterKit.configure({
@@ -105,6 +106,11 @@ export const defaultExtensions = [
     nocookie: false,
     allowFullscreen: true,
     autoplay: false,
+    addPasteHandler: false, // use EmbedVideo instead
+  }),
+  EmbedVideo.configure({
+    inline: false,
+    controls: true,
   }),
   TiptapLink.configure({
     HTMLAttributes: {

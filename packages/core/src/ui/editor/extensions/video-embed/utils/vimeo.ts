@@ -10,6 +10,7 @@ export const isValidVimeoUrl = (url: string) => {
 };
 
 export const getEmbedUrlFromVimeoUrl = (options: GetEmbedUrlOptions) => {
+  // TODO: implement further options if needed
   const { url } = options;
 
   if (!isValidVimeoUrl(url)) {

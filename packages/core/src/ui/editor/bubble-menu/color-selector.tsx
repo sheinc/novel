@@ -17,39 +17,39 @@ interface ColorSelectorProps {
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Default",
-    color: "var(--novel-black)",
+    color: "#1F2D32",
   },
   {
     name: "Purple",
-    color: "#9333EA",
+    color: "#8553A6",
   },
   {
     name: "Red",
-    color: "#E00000",
+    color: "#B34242",
   },
   {
     name: "Yellow",
-    color: "#EAB308",
+    color: "#876200",
   },
   {
     name: "Blue",
-    color: "#2563EB",
+    color: "#376E89",
   },
   {
     name: "Green",
-    color: "#008A00",
+    color: "#38744B",
   },
   {
     name: "Orange",
-    color: "#FFA500",
+    color: "#A94F17",
   },
   {
     name: "Pink",
-    color: "#BA4081",
+    color: "#9E4791",
   },
   {
     name: "Gray",
-    color: "#A8A29E",
+    color: "#5C6B70",
   },
 ];
 

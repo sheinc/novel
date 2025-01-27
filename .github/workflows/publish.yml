@@ -90,10 +90,10 @@ jobs:
           version: ${{ env.RELEASE_TAG }}
           publish: true
 
-  publish-builder-plugin:
+  publish-builder-plugin-novel:
     defaults:
       run:
-        working-directory: ./packages/builder-plugin
+        working-directory: ./packages/builder-plugin-novel
     runs-on: ubuntu-latest
     permissions:
       packages: write

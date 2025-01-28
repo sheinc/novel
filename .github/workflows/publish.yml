@@ -148,7 +148,7 @@ jobs:
         id: get_version
         run: |
           CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
-          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+          echo "version=$CURRENT_VERSION-plugin" >> "$GITHUB_OUTPUT"
 
       - name: Commit version
         run: |

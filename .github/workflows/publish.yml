@@ -169,7 +169,8 @@ jobs:
           ls -la
           cd -
           pnpm run
-          pnpm run build
+          pnpm run -F builder-plugin-novel build
+          pwd
           npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

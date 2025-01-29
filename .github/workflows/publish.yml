@@ -159,7 +159,11 @@ jobs:
           # git push origin release --tags
 
       - name: Publish package
-        run: pnpm run release
+        run: |
+          ls -la
+          pnpm run
+          pnpm run build
+          npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

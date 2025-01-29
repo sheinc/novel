@@ -37,8 +37,8 @@ jobs:
           fetch-depth: 0
 
       - name: Check the condition
-        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'release'
-        run: exit 0
+        if: github.event.pull_request.merged != true || github.event.pull_request.base.ref != 'release'
+        run: exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -119,8 +119,8 @@ jobs:
           fetch-depth: 0
 
       # - name: Check the condition
-      #   if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'release'
-      #   run: exit 0
+      #   if: github.event.pull_request.merged != true || github.event.pull_request.base.ref != 'release'
+      #   run: exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -154,9 +154,9 @@ jobs:
         run: |
           git add .
           git commit -m "chore: update version"
-          git switch release
-          git tag v${{ steps.get_version.outputs.version }}
-          git push origin release --tags
+          # git switch release
+          # git tag v${{ steps.get_version.outputs.version }}
+          # git push origin release --tags
 
       - name: Publish package
         run: pnpm run release

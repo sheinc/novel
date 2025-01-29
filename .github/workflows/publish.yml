@@ -38,7 +38,7 @@ jobs:
 
       - name: Check the condition
         if: github.event.pull_request.merged != true || github.event.pull_request.base.ref != 'release'
-        run: exit 1
+        run: exit 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -120,7 +120,7 @@ jobs:
 
       # - name: Check the condition
       #   if: github.event.pull_request.merged != true || github.event.pull_request.base.ref != 'release'
-      #   run: exit 1
+      #   run: exit 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3

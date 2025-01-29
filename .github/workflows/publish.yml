@@ -161,6 +161,9 @@ jobs:
       - name: Publish package
         run: |
           ls -la
+          cd node_modules
+          ls -la
+          cd -
           pnpm run
           pnpm run build
           npm run publish

@@ -171,7 +171,7 @@ jobs:
           pnpm run
           pnpm run -F builder-plugin-novel build
           pwd
-          npm run publish
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

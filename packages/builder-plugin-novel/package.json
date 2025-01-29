@@ -1,5 +1,5 @@
 {
-  "name": "rich-text-plugin",
+  "name": "@sheinc/rich-text-plugin",
   "version": "0.1.0",
   "description": "",
   "entry": "plugin",

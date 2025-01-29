@@ -70,9 +70,9 @@ jobs:
 
       - name: Commit version
         run: |
+          git switch release
           git add .
           git commit -m "chore: update version"
-          git switch release
           git tag v${{ steps.get_version.outputs.version }}
           git push origin release --tags
 

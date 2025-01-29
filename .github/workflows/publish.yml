@@ -57,7 +57,7 @@ jobs:
           git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git
 
       - name: Package install
-        run: pnpm install --frozen-lockfile
+        run: pnpm install -w --frozen-lockfile
 
       - name: Update version
         run: pnpm version patch --no-git-tag-version
@@ -139,7 +139,7 @@ jobs:
           git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git
 
       - name: Package install
-        run: pnpm install --frozen-lockfile
+        run: pnpm install -w --frozen-lockfile
 
       - name: Update version
         run: pnpm version patch --no-git-tag-version

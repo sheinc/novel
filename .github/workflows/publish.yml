@@ -93,10 +93,10 @@ jobs:
           publish: true
 
   publish-builder-plugin-novel:
-    defaults:
-      run:
-        working-directory: ./packages/builder-plugin-novel
-        shell: bash
+    # defaults:
+    #   run:
+    #     working-directory: ./packages/builder-plugin-novel
+    #     shell: bash
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -139,18 +139,21 @@ jobs:
           git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git
 
       - name: Package install
-        run: pnpm install -w --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Update version
+        working-directory: ./packages/builder-plugin-novel
         run: pnpm version patch --no-git-tag-version
 
       - name: Get version
         id: get_version
+        working-directory: ./packages/builder-plugin-novel
         run: |
           CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
           echo "version=$CURRENT_VERSION-plugin" >> "$GITHUB_OUTPUT"
 
       - name: Commit version
+        working-directory: ./packages/builder-plugin-novel
         run: |
           git add .
           git commit -m "chore: update version"
@@ -159,6 +162,7 @@ jobs:
           # git push origin release --tags
 
       - name: Publish package
+        working-directory: ./packages/builder-plugin-novel
         run: |
           ls -la
           cd node_modules

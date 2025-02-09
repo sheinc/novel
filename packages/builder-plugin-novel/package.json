@@ -1,10 +1,9 @@
 {
-  "name": "rich-text-plugin",
-  "version": "0.1.0",
+  "name": "builder-plugin-novel",
+  "version": "0.0.1",
   "description": "",
-  "entry": "plugin",
-  "output": "plugin.system.js",
   "main": "public/plugin.system.js",
+  "module": "public/plugin.system.js",
   "files": [
     "public"
   ],
@@ -13,7 +12,7 @@
     "start": "vite dev",
     "release": "pnpm run build && npm publish"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "@babel/preset-react": "^7.26.3",
     "@builder.io/app-context": "^1.0.0",

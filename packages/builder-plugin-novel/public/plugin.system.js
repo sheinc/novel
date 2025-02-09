@@ -1682,4 +1682,4 @@ cursor: move;
         OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
         PERFORMANCE OF THIS SOFTWARE.
         ***************************************************************************** *)
-      */const YY="builder-novel",UY=t=>{const n=[GY({suggestionItems:[]})];return Ne.createElement(PY,{extensions:n,defaultValue:t.value,autofocus:!1,onUpdate:r=>{r&&t.onChange(r.getJSON())},storageKey:YY})};xg.registerEditor({name:"Novel",component:UY})}}});
+      */const YY="builder-novel",UY=t=>{const n=[GY({suggestionItems:[]})];return Ne.createElement(PY,{extensions:n,defaultValue:t.value,autofocus:!1,onUpdate:r=>{r&&t.onChange(r.getJSON())},storageKey:YY})};xg.registerEditor({name:"WysiwygEditor",component:UY})}}});

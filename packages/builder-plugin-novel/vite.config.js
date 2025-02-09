@@ -5,7 +5,7 @@ import path from "path";
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: path.resolve(__dirname, "./src/plugin.tsx"), // エントリーポイントを .tsx に変更
+      input: path.resolve(__dirname, "./src/plugin.tsx"),
       external: [
         "@builder.io/react",
         "@builder.io/app-context",

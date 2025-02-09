@@ -8,6 +8,7 @@ const STORAGE_KEY = "builder-novel";
 
 interface PluginProps {
   value: object;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: object) => void;
 }
 const RichTextEditor = (props: PluginProps) => {
@@ -17,6 +18,7 @@ const RichTextEditor = (props: PluginProps) => {
   });
   const extensions = [slashCommandExtension];
   return (
+    // @ts-ignore
     <NovelEditor
       extensions={extensions}
       defaultValue={props.value}
@@ -31,6 +33,6 @@ const RichTextEditor = (props: PluginProps) => {
 };
 
 Builder.registerEditor({
-  name: "Novel",
+  name: "WysiwygEditor",
   component: RichTextEditor,
 });

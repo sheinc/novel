@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Editor as NovelEditor, createSlashCommand } from "novel";
+import { Editor as NovelEditor, createSlashCommand } from "@sheinc/novel";
 
 export default function Editor() {
   const [saveStatus, setSaveStatus] = useState("Saved");

@@ -1,8 +1,8 @@
 import { Extension } from "@tiptap/core";
 
 import { NodeSelection, Plugin } from "@tiptap/pm/state";
-// @ts-ignore
-import { __serializeForClipboard, EditorView } from "@tiptap/pm/view";
+import { EditorView } from "@tiptap/pm/view";
+import { serializeForClipboard } from "./clipboard-serializer";
 
 export interface DragHandleOptions {
   /**
@@ -68,7 +68,7 @@ function DragHandle(options: DragHandleOptions) {
     );
 
     const slice = view.state.selection.content();
-    const { dom, text } = __serializeForClipboard(view, slice);
+    const { dom, text } = serializeForClipboard(view, slice);
 
     event.dataTransfer.clearData();
     event.dataTransfer.setData("text/html", dom.innerHTML);

@@ -203,7 +203,7 @@ export const defaultExtensions = [
   }),
   Markdown.configure({
     html: false,
-    transformCopiedText: true,
+    transformCopiedText: false,
     transformPastedText: true,
   }),
   CustomKeymap,

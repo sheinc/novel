@@ -53,3 +53,6 @@ packages/*/dist
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# claude
+.claude/*.local.json

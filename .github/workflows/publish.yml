@@ -10,6 +10,7 @@ on:
     types: [closed]
     branches:
       - release
+  workflow_dispatch:
 
 jobs:
   publish:

@@ -71,6 +71,7 @@ jobs:
           git add .
           git commit -m "chore: update version"
           git tag v${{ steps.get_version.outputs.version }}
+          git pull origin release --rebase
           git push origin release --tags
 
       - name: Publish package

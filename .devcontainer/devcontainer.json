@@ -2,14 +2,28 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
 	"name": "sheinc-novel",
+	"build": {
+		"dockerfile": "Dockerfile",
+	},
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	// "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/node:1": {
 			"version": "20.17.0",
 			"pnpmVersion": "8"
 		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.pnpm-store,target=/home/node/.pnpm-store,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.aws,target=/home/node/.aws,type=bind,consistency=cached",
+		"source=she-claude-code-bashhistory,target=/commandhistory,type=volume",
+		"source=she-claude-code-config,target=/home/node/.claude,type=volume"
+	],
+	"remoteEnv": {
+		"NODE_OPTIONS": "--max-old-space-size=4096",
+		"CLAUDE_CONFIG_DIR": "/home/node/.claude",
+		"POWERLEVEL9K_DISABLE_GITSTATUS": "true"
 	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -22,8 +36,5 @@
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root",
 	// Mount local .pnpm-store into the container
-	"mounts": [
-		"source=${localEnv:HOME}/.pnpm-store,target=/home/node/.pnpm-store,type=bind,consistency=cached"
-	],
 	"postCreateCommand": "pnpm config set store-dir /home/node/.pnpm-store"
 }

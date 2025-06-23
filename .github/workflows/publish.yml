@@ -1,4 +1,4 @@
-name: Publish to Release Branch
+name: Release and Publish Package
 on:
   # Manual trigger for publishing from the release branch
   workflow_dispatch:
@@ -55,6 +55,14 @@ jobs:
           TAG=$(git tag --sort=-v:refname | grep '^v' | head -n1 || echo "v0.0.0")
           echo "latest_tag=$TAG" >> "$GITHUB_OUTPUT"
 
+      - name: Validate release branch
+        run: |
+          git fetch origin she-main
+          if [ $(git rev-list --count HEAD..origin/she-main) -gt 0 ]; then
+            echo "❌ Release branch is behind she-main"
+            exit 1
+          fi
+
       - name: Bump version from tag
         id: bump
         run: |
@@ -73,9 +81,12 @@ jobs:
 
           new_tag="v${major}.${minor}.${patch}"
           echo "new_tag=$new_tag" >> "$GITHUB_OUTPUT"
+          if git rev-parse "$new_tag" >/dev/null 2>&1; then
+            echo "❌ Tag $new_tag already exists"
+            exit 1
+          fi
           # Create tag on the release branch
-          git tag "$new_tag" release
-          git push origin "$new_tag"
+          git tag "$new_tag" && git push origin "$new_tag" || exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -112,9 +123,8 @@ jobs:
         uses: release-drafter/release-drafter@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ steps.bump.outputs.new_tag }}
         with:
-          tag: ${{ env.RELEASE_TAG }}
-          name: Release ${{ env.RELEASE_TAG }}
-          version: ${{ env.RELEASE_TAG }}
+          tag: ${{ steps.bump.outputs.new_tag }}
+          name: Release ${{ steps.bump.outputs.new_tag }}
+          version: ${{ steps.bump.outputs.new_tag }}
           publish: true

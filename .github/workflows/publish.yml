@@ -1,19 +1,24 @@
-name: Publish
-
-defaults:
-  run:
-    shell: bash
-    working-directory: ./packages/core
-
+name: Release and Publish Package
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - release
+  # Manual trigger for publishing from the release branch
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version type (patch, minor, major)"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 jobs:
-  publish:
+  release_and_publish:
+    defaults:
+      run:
+        working-directory: ./packages/core
+        shell: bash
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -30,13 +35,58 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - name: git config
+        run: |
+          git config --global user.name "sheincbot[bot]"
+          git config --global user.email "${{ secrets.APP_ID }}+sheincbot[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git
+
+      - name: Checkout release branch
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
         with:
           persist-credentials: false
+          fetch-depth: 0
+          ref: release
 
-      - name: Check the condition
-        if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'release'
-        run: exit 0
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          git fetch --tags
+          TAG=$(git tag --sort=-v:refname | grep '^v' | head -n1 || echo "v0.0.0")
+          echo "latest_tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - name: Validate release branch
+        run: |
+          git fetch origin she-main
+          if [ $(git rev-list --count HEAD..origin/she-main) -gt 0 ]; then
+            echo "❌ Release branch is behind she-main"
+            exit 1
+          fi
+
+      - name: Bump version from tag
+        id: bump
+        run: |
+          current="${{ steps.get_tag.outputs.latest_tag }}"
+          current=${current#v}
+          IFS='.' read -r major minor patch <<< "$current"
+
+          case "${{ github.event.inputs.version }}" in
+            major)
+              ((major+=1)); minor=0; patch=0 ;;
+            minor)
+              ((minor+=1)); patch=0 ;;
+            patch)
+              ((patch+=1)) ;;
+          esac
+
+          new_tag="v${major}.${minor}.${patch}"
+          echo "new_tag=$new_tag" >> "$GITHUB_OUTPUT"
+          if git rev-parse "$new_tag" >/dev/null 2>&1; then
+            echo "❌ Tag $new_tag already exists"
+            exit 1
+          fi
+          # Create tag on the release branch
+          git tag "$new_tag" && git push origin "$new_tag" || exit 1
 
       - name: Setup Node.js
         uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3.9.1
@@ -48,31 +98,21 @@ jobs:
         with:
           version: 8
 
-      - name: git config
-        run: |
-          git config --global user.name "sheincbot[bot]"
-          git config --global user.email "${{ secrets.APP_ID }}+sheincbot[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${{ github.repository }}.git
-
       - name: Package install
         run: pnpm install --frozen-lockfile
 
-      - name: Update version
-        run: pnpm version patch --no-git-tag-version
-
-      - name: Get version
-        id: get_version
+      - name: Inject version into package.json
         run: |
-          CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
-          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+          VERSION=${{ steps.bump.outputs.new_tag }}
+          VERSION=${VERSION#v}
+          jq ".version = \"$VERSION\"" package.json > tmp.json && mv tmp.json package.json
 
-      - name: Commit version
-        run: |
-          git switch release
-          git add .
-          git commit -m "chore: update version"
-          git tag v${{ steps.get_version.outputs.version }}
-          git push origin release --tags
+      # NOTE: Tag は commit せず常に git tag を正として運用する
+      # - name: Commit version changes to release branch
+      #   run: |
+      #     git add package.json
+      #     git commit -m "chore: bump version to ${{ steps.bump.outputs.new_tag }}"
+      #     git push origin release
 
       - name: Publish package
         run: pnpm run -w release
@@ -83,9 +123,8 @@ jobs:
         uses: release-drafter/release-drafter@09c613e259eb8d4e7c81c2cb00618eb5fc4575a7 # v5.25.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: "v${{ steps.get_version.outputs.version }}"
         with:
-          tag: ${{ env.RELEASE_TAG }}
-          name: Release ${{ env.RELEASE_TAG }}
-          version: ${{ env.RELEASE_TAG }}
+          tag: ${{ steps.bump.outputs.new_tag }}
+          name: Release ${{ steps.bump.outputs.new_tag }}
+          version: ${{ steps.bump.outputs.new_tag }}
           publish: true

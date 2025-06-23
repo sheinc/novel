@@ -43,18 +43,9 @@ jobs:
         with:
           template: .github/pr_body_for_production_release
 
-      - name: Update version
-        run: cd packages/core && npm version patch --no-git-tag-version
-
-      - name: Get version
-        id: get_version
-        run: |
-          CURRENT_VERSION=$(node -e "console.log(require('./packages/core/package.json').version)")
-          echo "version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
-
       - name: Create PullRequest to release
         run: |
-          gh pr create --base release --head she-main --title "Production release v${{ steps.get_version.outputs.version }}" --body "${{ steps.render_template.outputs.result }}" --reviewer ${{ github.event.sender.login }} || exit 0
+          gh pr create --base release --head she-main --title "Production release" --body "${{ steps.render_template.outputs.result }}" --reviewer ${{ github.event.sender.login }} || exit 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: ${{ env.PR_BODY }}

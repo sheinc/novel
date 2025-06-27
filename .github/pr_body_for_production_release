@@ -1,4 +1,12 @@
 ## 概要
 
-この　PR をマージすると Production へリリースされます。
-https://github.com/sheinc/novel/pkgs/npm/novel
+この PR をマージ後に以下の手順でリリースできます。
+
+1. Release and Publish Package https://github.com/sheinc/novel/actions/workflows/publish.yml の実行
+    a. Run workflow から branch を "release" に
+    b. Version を "major", "minor", "patch" の中から選ぶ
+    c. 実行
+
+## Tips
+
+- デプロイされた npm registry は https://github.com/sheinc/novel/pkgs/npm/novel で確認できます

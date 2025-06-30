@@ -51,12 +51,14 @@ jobs:
       - name: Get latest tag
         id: get_tag
         run: |
+          set +o pipefail
           git fetch --tags --force
 
           TAG=$(git tag --sort=-v:refname | grep -m1 '^v')
           TAG=${TAG:-v0.0.0}
           TAG=$(echo "$TAG" | tr -d '\r\n')
 
+          set -o pipefail
           echo "latest_tag=$TAG" >> "$GITHUB_OUTPUT"
       - name: Validate release branch
         run: |

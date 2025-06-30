@@ -52,7 +52,8 @@ jobs:
         id: get_tag
         run: |
           git fetch --tags
-          TAG=$(git tag --sort=-v:refname | grep '^v' | head -n1 || echo "v0.0.0")
+          TAG=$(git tag --sort=-v:refname | grep '^v' | head -n1)
+          TAG=${TAG:-v0.0.0}
           echo "latest_tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Validate release branch

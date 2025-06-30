@@ -52,7 +52,8 @@ jobs:
         id: get_tag
         run: |
           git fetch --tags --force
-          TAG=$(git tag --sort=-v:refname | grep '^v' | head -n1)
+          # Using grep -m1 instead of piping to head to avoid broken pipe error
+          TAG=$(git tag --sort=-v:refname | grep -m1 '^v' || echo "v0.0.0")
           TAG=${TAG:-v0.0.0}
           echo "latest_tag=$TAG" >> "$GITHUB_OUTPUT"
 

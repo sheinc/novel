@@ -48,14 +48,14 @@
     "@tiptap/react": "^2.1.7",
     "@tiptap/starter-kit": "^2.1.7",
     "@tiptap/suggestion": "^2.1.7",
-    "@types/node": "18.15.3",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
+    "@types/node": "18.19.54",
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1",
     "@upstash/ratelimit": "^0.4.4",
     "@vercel/analytics": "^1.0.2",
     "@vercel/blob": "^0.9.3",
     "@vercel/kv": "^0.2.2",
-    "ai": "^2.2.11",
+    "ai": "^3.4.33",
     "classnames": "^2.3.2",
     "clsx": "^1.2.1",
     "emoji-picker-react": "^4.5.16",
@@ -71,7 +71,7 @@
     "tailwind-merge": "^1.14.0",
     "tippy.js": "^6.3.7",
     "tiptap-markdown": "^0.8.2",
-    "typescript": "4.9.5",
+    "typescript": "5.6.3",
     "use-debounce": "^9.0.4"
   },
   "devDependencies": {
@@ -82,7 +82,7 @@
     "tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^7.2.0",
-    "typescript": "^4.9.4"
+    "typescript": "^5.6.3"
   },
   "homepage": "https://novel.sh",
   "repository": {

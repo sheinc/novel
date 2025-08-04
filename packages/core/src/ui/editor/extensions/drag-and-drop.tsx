@@ -70,7 +70,7 @@ function DragHandle(options: DragHandleOptions) {
     
     // Use the selection's HTML content directly
     const selectedNode = view.domAtPos(view.state.selection.from).node;
-    const html = selectedNode?.innerHTML || '';
+    const html = (selectedNode as Element)?.innerHTML || '';
     const text = selectedNode?.textContent || '';
 
     event.dataTransfer.clearData();

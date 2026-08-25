@@ -1,6 +1,10 @@
+"use client"
+
 import { Github } from "@/ui/icons";
-import Menu from "@/ui/menu";
+import dynamic from "next/dynamic";
 import Editor from "@/ui/editor";
+
+const Menu = dynamic(() => import("@/ui/menu"), { ssr: false });
 
 export default function Page() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useEditor, EditorContent, JSONContent } from "@tiptap/react";
 import { defaultEditorProps } from "./props";
 import { defaultExtensions } from "./extensions";
@@ -140,7 +140,7 @@ export default function Editor({
           <ImageResizer editor={editor} />
         )}
         {editor?.isActive("table") && <TableMenu editor={editor} />}
-        <EditorContent editor={editor} />
+        {editor && React.createElement(EditorContent as any, { editor })}
       </div>
     </NovelContext.Provider>
   );

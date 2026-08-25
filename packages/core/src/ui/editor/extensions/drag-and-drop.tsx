@@ -1,8 +1,7 @@
 import { Extension } from "@tiptap/core";
 
 import { NodeSelection, Plugin } from "@tiptap/pm/state";
-// @ts-ignore
-import { __serializeForClipboard, EditorView } from "@tiptap/pm/view";
+import { EditorView } from "@tiptap/pm/view";
 
 export interface DragHandleOptions {
   /**
@@ -68,10 +67,14 @@ function DragHandle(options: DragHandleOptions) {
     );
 
     const slice = view.state.selection.content();
-    const { dom, text } = __serializeForClipboard(view, slice);
+    
+    // Use the selection's HTML content directly
+    const selectedNode = view.domAtPos(view.state.selection.from).node;
+    const html = (selectedNode as Element)?.innerHTML || '';
+    const text = selectedNode?.textContent || '';
 
     event.dataTransfer.clearData();
-    event.dataTransfer.setData("text/html", dom.innerHTML);
+    event.dataTransfer.setData("text/html", html);
     event.dataTransfer.setData("text/plain", text);
     event.dataTransfer.effectAllowed = "copyMove";
 
